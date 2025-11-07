@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jorge | Data Analyst Portfolio</title>
+  <meta name="description" content="Portfolio de proyectos de Data Analytics: Power BI, KNIME, SQL, ETL y Forecasting." />
+  <meta property="og:title" content="Jorge | Data Analyst Portfolio" />
+  <meta property="og:description" content="Proyectos en Power BI, KNIME, SQL, Python y más." />
+  <style>
+    :root {
+      --bg: #0b0f16;        /* fondo principal (modo oscuro) */
+      --card: #121826;      /* tarjetas */
+      --muted: #9aa4b2;
+      --text: #e5ecf4;      /* texto principal */
+      --brand: #4f8cff;     /* acento */
+      --ok: #12b886;        /* verde */
+      --warn: #ffd166;      /* amarillo */
+      --radius: 16px;
+      --shadow: 0 8px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f7f9fc; --card:#ffffff; --text:#0b0f16; --muted:#5c6675; }
+      header.hero { background: linear-gradient(120deg, #e8f0ff, #f7f9ff); }
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; color:var(--text); background:var(--bg); line-height:1.5; }
+
+    .container { width:min(1120px, 92%); margin-inline:auto; }
+
+    header.hero { background: linear-gradient(140deg, #0f172a, #1e293b 55%, #0b0f16); padding: clamp(36px, 6vw, 72px) 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .hero-inner { display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(16px, 4vw, 32px); align-items:center; }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); margin:0 0 8px; letter-spacing:.2px; }
+    .hero p.lead { margin:0 0 18px; color:var(--muted); font-size: clamp(15px, 2.2vw, 18px); }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(79,140,255,.12); color:#cfe1ff; border:1px solid rgba(79,140,255,.25); font-weight:600; font-size:14px; }
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .btn { --bgbtn: var(--brand); --txt:#fff; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background:var(--bgbtn); color:var(--txt); border:1px solid transparent; text-decoration:none; font-weight:600; box-shadow:var(--shadow); }
+    .btn.ghost { --bgbtn: transparent; --txt: var(--text); border-color: rgba(255,255,255,.18); box-shadow:none; }
+
+    .hero-card { background: rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:20px; box-shadow:var(--shadow); }
+    .hero-card ul { margin:0; padding-left:18px; color:var(--muted); }
+
+    section { padding: clamp(28px, 6vw, 60px) 0; }
+    h2 { font-size: clamp(22px, 3.2vw, 28px); margin:0 0 12px; }
+    .sub { color:var(--muted); margin:0 0 22px; }
+
+    .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+    .filter { padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text); cursor:pointer; font-weight:600; }
+    .filter.active { background:var(--brand); border-color:transparent; color:#fff; }
+    .search { flex:1 1 220px; min-width:220px; }
+    .search input { width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text); }
+
+    .grid { display:grid; grid-template-columns: repeat(12, 1fr); gap:16px; }
+    .card { grid-column: span 12; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:18px; box-shadow: var(--shadow); display:flex; flex-direction:column; }
+    @media (min-width: 720px){ .card { grid-column: span 6; } }
+    @media (min-width: 1024px){ .card { grid-column: span 4; } }
+
+    .card .meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .badge { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); color:var(--muted); }
+    .card h3 { margin:4px 0 6px; font-size:18px; }
+    .card p { color:var(--muted); margin:0 0 10px; }
+    .tags { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px; }
+    .tag { font-size:12px; padding:6px 8px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
+    .links { display:flex; gap:8px; flex-wrap:wrap; margin-top:auto; }
+    .links a { text-decoration:none; font-weight:700; font-size:14px; padding:10px 12px; border-radius:10px; background:#1f2937; color:#dbe7ff; border:1px solid rgba(255,255,255,.08); }
+    .links a.secondary { background:transparent; color:var(--text); }
+
+    .about { display:grid; grid-template-columns: 1fr; gap:18px; }
+    @media (min-width: 900px){ .about { grid-template-columns: 1.2fr .8fr; } }
+    .about .box { background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); }
+    .list { margin:0; padding-left:18px; color:var(--muted); }
+
+    footer { padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted); font-size:14px; }
+    .contact { display:flex; gap:10px; flex-wrap:wrap; }
+    .contact a { color:#cfe1ff; text-decoration:none; border:1px solid rgba(255,255,255,.16); padding:8px 12px; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="pill">Data Analytics · BI · ETL</span>
+        <h1>Jorge — Data Analyst</h1>
+        <p class="lead">Creo soluciones de analítica de datos centradas en negocio: dashboards de <strong>Power BI</strong>, pipelines <strong>KNIME/Python</strong>, modelos <strong>SQL</strong> y forecasting. Enfocado en retail y supply chain.</p>
+        <div class="cta-row">
+          <a class="btn" href="#proyectos" aria-label="Ir a proyectos">Ver proyectos</a>
+          <a class="btn ghost" href="#contacto" aria-label="Ir a contacto">Contacto</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <strong>Lo que verás aquí</strong>
+        <ul>
+          <li>Dashboards interactivos (Power BI) con enfoque en KPIs accionables.</li>
+          <li>Workflows de ingesta, limpieza y orquestación (KNIME / Python).</li>
+          <li>Consultas y modelos SQL (dimensional, series temporales, cohortes).</li>
+          <li>Casos reales de retail, logística y precios de commodities.</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="proyectos" class="container">
+      <h2>Proyectos destacados</h2>
+      <p class="sub">Filtra por stack o busca por palabra clave (dataset, técnica, KPI...).</p>
+
+      <div class="toolbar">
+        <div class="filters">
+          <button class="filter active" data-filter="all">Todos</button>
+          <button class="filter" data-filter="Power BI">Power BI</button>
+          <button class="filter" data-filter="KNIME">KNIME</button>
+          <button class="filter" data-filter="SQL">SQL</button>
+          <button class="filter" data-filter="Python">Python</button>
+          <button class="filter" data-filter="ETL">ETL</button>
+        </div>
+        <div class="search">
+          <label for="q" class="visually-hidden">Buscar</label>
+          <input id="q" type="search" placeholder="Buscar: Altadis, cohortes, ARIMA, OoS, etc." aria-label="Buscar proyectos" />
+        </div>
+      </div>
+
+      <div class="grid" id="grid">
+        <!-- Card 1 -->
+        <article class="card" data-tags="Power BI, SQL, ETL, Retail" data-title="Reto Altadis Data Warehouse KPIs">
+          <div class="meta"><span class="badge">Retail · Supply Chain</span><span class="badge">2025</span></div>
+          <h3>Reto Altadis — Data Warehouse & KPIs</h3>
+          <p>Modelo <strong>snowflake</strong>, calidad de datos (OoS, entregas, ventas) y dashboard operativo de rutas y afiliados. Integración de variables externas (festivos, CP, precios estimados).</p>
+          <div class="tags">
+            <span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">ETL</span><span class="tag">Geo</span>
+          </div>
+          <div class="links">
+            <a href="#" title="Demo Power BI">Demo</a>
+            <a class="secondary" href="#" title="Repositorio / Documentación">Repositorio</a>
+            <a class="secondary" href="#" title="PDF resumen">Informe</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" data-tags="Power BI, Clientes, Segmentación" data-title="AdventureWorks Segmentación clientes Dashboard">
+          <div class="meta"><span class="badge">Ventas · Marketing</span><span class="badge">2025</span></div>
+          <h3>AdventureWorks — Segmentación de clientes & KPIs</h3>
+          <p>Panel ejecutivo con <strong>RFM</strong>, cohortes, CLV estimado y funnel de conversión. Calendario extendido (semana, trimestre) y medidas DAX para comparativas YoY.</p>
+          <div class="tags">
+            <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">RFM</span><span class="tag">Cohortes</span>
+          </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a class="secondary" href="#">Repositorio</a>
+            <a class="secondary" href="#">Informe</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" data-tags="Python, Power BI, Forecasting, Commodities" data-title="Forecasting precio azufre sulfur ARIMA">
+          <div class="meta"><span class="badge">Commodities</span><span class="badge">2025</span></div>
+          <h3>Forecasting del precio del azufre</h3>
+          <p>Pipeline de series temporales (ARIMA/ETS) y <em>nowcasting</em> con señales de noticias. Visualización del último precio, MA30, bandas y alertas.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">R</span><span class="tag">Power BI</span><span class="tag">Time Series</span>
+          </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a class="secondary" href="#">Repositorio</a>
+            <a class="secondary" href="#">Informe</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card" data-tags="KNIME, Web Scraping, ETL, Python" data-title="KNIME GDELT scraping noticias azufre">
+          <div class="meta"><span class="badge">NLP · News</span><span class="badge">2025</span></div>
+          <h3>KNIME — Ingesta de noticias (GDELT & scraping)</h3>
+          <p>Workflow para extraer, limpiar y etiquetar noticias sobre azufre (agro) con <strong>KNIME</strong> + Python. Export a JSON/CSV y panel resumen.</p>
+          <div class="tags">
+            <span class="tag">KNIME</span><span class="tag">ETL</span><span class="tag">Python</span><span class="tag">JSON</span>
+          </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a class="secondary" href="#">Repositorio / KNIME Hub</a>
+            <a class="secondary" href="#">Informe</a>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card" data-tags="Power BI, Mercado, Amazon" data-title="Amazon FBA analitica mercado">
+          <div class="meta"><span class="badge">E‑commerce</span><span class="badge">2024–2025</span></div>
+          <h3>Amazon FBA — Análisis de mercado y pricing</h3>
+          <p>Evaluación de demanda, benchmarking y márgenes (FOB, logística) para producto privado. KPIs: conversión, BSR, share, ROAS.</p>
+          <div class="tags">
+            <span class="tag">Power BI</span><span class="tag">Marketplace</span><span class="tag">Pricing</span>
+          </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a class="secondary" href="#">Repositorio</a>
+            <a class="secondary" href="#">Informe</a>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card" data-tags="SQL, Power BI, DAX" data-title="SQL cohortes series temporales ventas">
+          <div class="meta"><span class="badge">Analytics Engineering</span><span class="badge">2025</span></div>
+          <h3>SQL Analytics — Cohortes y series temporales</h3>
+          <p>Consultas para <strong>cohortes de clientes</strong>, ventas M/M y calendario extendido. Modelo dimensional con <em>facts</em> y <em>dims</em> para BI.</p>
+          <div class="tags">
+            <span class="tag">SQL</span><span class="tag">Modelado</span><span class="tag">Power BI</span>
+          </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a class="secondary" href="#">Repositorio</a>
+            <a class="secondary" href="#">Informe</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="container about">
+      <div class="box">
+        <h2>Sobre mí</h2>
+        <p>Data Analyst con enfoque en negocio. Experiencia en retail (Inditex/Zara) y proyectos de Business Intelligence (UNIR). Me gusta construir soluciones end‑to‑end: desde la ingesta y calidad de datos hasta la visualización y la toma de decisiones.</p>
+        <ul class="list">
+          <li><strong>Stack:</strong> Power BI (DAX, Power Query), KNIME, SQL, Python/R.</li>
+          <li><strong>Áreas:</strong> Retail, logística, e‑commerce, commodities.</li>
+          <li><strong>Valor:</strong> KPIs accionables, automatización y storytelling con datos.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Habilidades clave</h2>
+        <ul class="list">
+          <li>Modelado dimensional (star/snowflake), calendario extendido, medidas comparativas (YoY, MoM).</li>
+          <li>ETL con KNIME/Python, limpieza y reconciliación de fuentes, control de calidad de datos.</li>
+          <li>SQL avanzado (window functions, cohortes, time series) y performance básica.</li>
+          <li>Publicación de dashboards, control de accesos y documentación ejecutiva.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contacto" class="container">
+      <h2>Contacto</h2>
+      <p class="sub">¿Interesado en colaborar o ver un caso concreto? Escríbeme.</p>
+      <div class="contact">
+        <a href="#" aria-label="LinkedIn de Jorge">LinkedIn</a>
+        <a href="#" aria-label="GitHub de Jorge">GitHub</a>
+        <a href="mailto:tu-email@ejemplo.com" aria-label="Enviar correo">Email</a>
+        <a href="#" aria-label="Descargar CV">Descargar CV</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="y"></span> Jorge · Portfolio de Data Analytics. Actualizado periódicamente.</div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Filtros por stack
+    const filters = document.querySelectorAll('.filter');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const key = btn.dataset.filter;
+      cards.forEach(c => {
+        if (key === 'all') { c.style.display = ''; return; }
+        const tags = (c.getAttribute('data-tags')||'').toLowerCase();
+        c.style.display = tags.includes(key.toLowerCase()) ? '' : 'none';
+      });
+    }));
+
+    // Búsqueda por texto
+    const q = document.getElementById('q');
+    q.addEventListener('input', () => {
+      const term = q.value.trim().toLowerCase();
+      cards.forEach(c => {
+        const haystack = [
+          c.getAttribute('data-title')||'',
+          c.querySelector('h3')?.textContent||'',
+          c.querySelector('p')?.textContent||'',
+          c.getAttribute('data-tags')||''
+        ].join(' ').toLowerCase();
+        c.style.display = haystack.includes(term) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
