@@ -8,36 +8,135 @@
   <meta property="og:title" content="Jorge | Data Analyst Portfolio" />
   <meta property="og:description" content="Proyectos en Power BI, KNIME, SQL, Python y más." />
   <style>
+    /* === Sistema de diseño con tokens por tema === */
     :root {
-      --bg: #0b0f16;        /* fondo principal (modo oscuro) */
-      --card: #121826;      /* tarjetas */
+      color-scheme: light dark; /* hace que inputs/scrollbar respeten el tema del SO */
+      /* Tema oscuro (por defecto) */
+      --bg: #0b0f16;
+      --card: #121826;
+      --text: #e5ecf4;
       --muted: #9aa4b2;
-      --text: #e5ecf4;      /* texto principal */
-      --brand: #4f8cff;     /* acento */
-      --ok: #12b886;        /* verde */
-      --warn: #ffd166;      /* amarillo */
+      --brand: #4f8cff;
+      --ok: #12b886;
+      --warn: #ffd166;
+
+      /* Tokens neutrales dependientes de tema */
+      --border: rgba(255,255,255,0.14);
+      --border-strong: rgba(255,255,255,0.24);
+      --chip-bg: rgba(255,255,255,0.06);
+      --pill-bg: rgba(79,140,255,0.14);
+      --pill-text: #d9e6ff;
+      --veil: rgba(255,255,255,0.04);
+      --input-bg: rgba(255,255,255,0.04);
+      --input-border: rgba(255,255,255,0.16);
+      --link-bg: #1f2937;
+      --link-text: #dbe7ff;
+
       --radius: 16px;
       --shadow: 0 8px 30px rgba(0,0,0,.35);
+
+      /* Gradientes/cabecera */
+      --hero-gradient: linear-gradient(140deg, #0f172a, #1e293b 55%, #0b0f16);
+      --headline-fallback: #89b4ff; /* color sólido si no hay soporte de gradiente de texto */
+      --headline-gradient: linear-gradient(90deg, #cfe1ff, #4f8cff);
     }
+
     @media (prefers-color-scheme: light) {
-      :root { --bg:#f7f9fc; --card:#ffffff; --text:#0b0f16; --muted:#5c6675; }
-      header.hero { background: linear-gradient(120deg, #e8f0ff, #f7f9ff); }
+      :root {
+        --bg:#f7f9fc;
+        --card:#ffffff;
+        --text:#0b0f16;
+        --muted:#5c6675;
+
+        --border: rgba(0,0,0,0.12);
+        --border-strong: rgba(0,0,0,0.18);
+        --chip-bg: rgba(10,20,40,0.06);
+        --pill-bg: rgba(79,140,255,0.12);
+        --pill-text: #1e3a8a;
+        --veil: rgba(10,20,40,0.04);
+        --input-bg: #ffffff;
+        --input-border: rgba(0,0,0,0.12);
+        --link-bg: #eef4ff;
+        --link-text: #143b8f;
+
+        --hero-gradient: linear-gradient(120deg, #e8f0ff, #f7f9ff);
+        --headline-fallback: #1e3a8a;
+        --headline-gradient: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      }
     }
+
     * { box-sizing: border-box; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; color:var(--text); background:var(--bg); line-height:1.5; }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
     .container { width:min(1120px, 92%); margin-inline:auto; }
 
-    header.hero { background: linear-gradient(140deg, #0f172a, #1e293b 55%, #0b0f16); padding: clamp(36px, 6vw, 72px) 0; border-bottom:1px solid rgba(255,255,255,.06); }
-    .hero-inner { display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(16px, 4vw, 32px); align-items:center; }
-    .hero h1 {font-size: clamp(28px, 5vw, 44px);margin:0 0 8px;letter-spacing:.2px;background: linear-gradient(90deg, #cfe1ff, #4f8cff);-webkit-background-clip: text;background-clip: text;color: transparent;}
-    .hero p.lead { margin:0 0 18px; color:var(--muted); font-size: clamp(15px, 2.2vw, 18px); }
-    .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(79,140,255,.12); color:#cfe1ff; border:1px solid rgba(79,140,255,.25); font-weight:600; font-size:14px; }
-    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
-    .btn { --bgbtn: var(--brand); --txt:#fff; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background:var(--bgbtn); color:var(--txt); border:1px solid transparent; text-decoration:none; font-weight:600; box-shadow:var(--shadow); }
-    .btn.ghost { --bgbtn: transparent; --txt: var(--text); border-color: rgba(255,255,255,.18); box-shadow:none; }
+    header.hero {
+      background: var(--hero-gradient);
+      padding: clamp(36px, 6vw, 72px) 0;
+      border-bottom:1px solid var(--border);
+    }
 
-    .hero-card { background: rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:20px; box-shadow:var(--shadow); }
+    .hero-inner { display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(16px, 4vw, 32px); align-items:center; }
+
+    /* Fallback legible + gradiente si hay soporte */
+    .hero h1 { 
+      font-size: clamp(28px, 5vw, 44px);
+      margin:0 0 8px;
+      letter-spacing:.2px;
+      color: var(--headline-fallback);
+    }
+    @supports ((-webkit-background-clip:text) or (background-clip:text)) {
+      .hero h1 {
+        background: var(--headline-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .hero p.lead { margin:0 0 18px; color:var(--muted); font-size: clamp(15px, 2.2vw, 18px); }
+
+    .pill {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background:var(--pill-bg); color:var(--pill-text);
+      border:1px solid var(--border-strong); font-weight:600; font-size:14px;
+    }
+
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .btn {
+      --bgbtn: var(--brand); --txt:#fff;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px;
+      background:var(--bgbtn); color:var(--txt);
+      border:1px solid transparent; text-decoration:none; font-weight:600;
+      box-shadow:var(--shadow);
+      transition: transform .04s ease, box-shadow .2s ease, opacity .2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline:none; box-shadow:0 0 0 3px rgba(79,140,255,.35); }
+
+    .btn.ghost {
+      --bgbtn: transparent; --txt: var(--text);
+      border-color: var(--border-strong); box-shadow:none;
+    }
+
+    .hero-card {
+      background: var(--veil);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding:20px; box-shadow:var(--shadow);
+    }
     .hero-card ul { margin:0; padding-left:18px; color:var(--muted); }
 
     section { padding: clamp(28px, 6vw, 60px) 0; }
@@ -45,34 +144,75 @@
     .sub { color:var(--muted); margin:0 0 22px; }
 
     .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
-    .filter { padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text); cursor:pointer; font-weight:600; }
+    .filter {
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--border);
+      background:transparent; color:var(--text);
+      cursor:pointer; font-weight:600;
+      transition: background .2s, border-color .2s;
+    }
+    .filter:hover { border-color: var(--border-strong); }
     .filter.active { background:var(--brand); border-color:transparent; color:#fff; }
     .search { flex:1 1 220px; min-width:220px; }
-    .search input { width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text); }
+    .search input {
+      width:100%; padding:10px 12px; border-radius:12px;
+      border:1px solid var(--input-border);
+      background:var(--input-bg); color:var(--text);
+      outline:none;
+    }
+    .search input:focus-visible { box-shadow:0 0 0 3px rgba(79,140,255,.25); }
 
     .grid { display:grid; grid-template-columns: repeat(12, 1fr); gap:16px; }
-    .card { grid-column: span 12; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:18px; box-shadow: var(--shadow); display:flex; flex-direction:column; }
+    .card {
+      grid-column: span 12; background:var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius); padding:18px;
+      box-shadow: var(--shadow); display:flex; flex-direction:column;
+    }
     @media (min-width: 720px){ .card { grid-column: span 6; } }
     @media (min-width: 1024px){ .card { grid-column: span 4; } }
 
     .card .meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-    .badge { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); color:var(--muted); }
+    .badge { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); color:var(--muted); }
     .card h3 { margin:4px 0 6px; font-size:18px; }
     .card p { color:var(--muted); margin:0 0 10px; }
     .tags { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 12px; }
-    .tag { font-size:12px; padding:6px 8px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
+    .tag { font-size:12px; padding:6px 8px; border-radius:999px; background:var(--chip-bg); border:1px solid var(--border); }
+
     .links { display:flex; gap:8px; flex-wrap:wrap; margin-top:auto; }
-    .links a { text-decoration:none; font-weight:700; font-size:14px; padding:10px 12px; border-radius:10px; background:#1f2937; color:#dbe7ff; border:1px solid rgba(255,255,255,.08); }
+    .links a {
+      text-decoration:none; font-weight:700; font-size:14px;
+      padding:10px 12px; border-radius:10px;
+      background:var(--link-bg); color:var(--link-text);
+      border:1px solid var(--border);
+      transition: filter .15s ease;
+    }
+    .links a:hover { filter: brightness(1.03); }
     .links a.secondary { background:transparent; color:var(--text); }
 
     .about { display:grid; grid-template-columns: 1fr; gap:18px; }
     @media (min-width: 900px){ .about { grid-template-columns: 1.2fr .8fr; } }
-    .about .box { background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); }
+    .about .box { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); }
     .list { margin:0; padding-left:18px; color:var(--muted); }
 
-    footer { padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted); font-size:14px; }
+    footer { padding:28px 0; border-top:1px solid var(--border); color:var(--muted); font-size:14px; }
     .contact { display:flex; gap:10px; flex-wrap:wrap; }
-    .contact a { color:#cfe1ff; text-decoration:none; border:1px solid rgba(255,255,255,.16); padding:8px 12px; border-radius:10px; }
+    .contact a {
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid var(--border);
+      padding:8px 12px; border-radius:10px;
+      background:transparent;
+    }
+    .contact a:hover { background:var(--chip-bg); }
+
+    /* Accesibilidad: oculto visual, pero accesible al lector de pantalla */
+    .visually-hidden {
+      position:absolute !important;
+      height:1px; width:1px;
+      overflow:hidden; clip:rect(1px, 1px, 1px, 1px);
+      white-space:nowrap; border:0; padding:0; margin:-1px;
+    }
   </style>
 </head>
 <body>
@@ -100,6 +240,8 @@
   </header>
 
   <main>
+    <!-- (tu contenido original de secciones permanece igual) -->
+    <!-- Proyectos + About + Contacto idénticos al original -->
     <section id="proyectos" class="container">
       <h2>Proyectos destacados</h2>
       <p class="sub">Filtra por stack o busca por palabra clave (dataset, técnica, KPI...).</p>
@@ -120,33 +262,27 @@
       </div>
 
       <div class="grid" id="grid">
-
-        
+        <!-- (tus cards originales sin cambios estructurales) -->
         <!-- Proyecto BuConDa -->
         <article class="card" data-tags="Power BI, SQL, ETL, Retail, BI">
           <div class="meta">
             <span class="badge">Consultoría · BI</span>
             <span class="badge">2025</span>
           </div>
-        
           <h3>BuConDa — Dashboard de Control de Precios y Stock</h3>
-        
           <p>Proyecto de analítica para <strong>BuConDa Consulting</strong>, orientado al control operativo de stock, pedidos y entregas.
              Se desarrolló un modelo de datos limpio desde fuentes Excel y SQL, con medidas DAX para KPIs de demanda, OOS y eficiencia de proveedores.</p>
-        
           <div class="tags">
             <span class="tag">Power BI</span>
             <span class="tag">ETL</span>
             <span class="tag">SQL</span>
             <span class="tag">Consultoría</span>
           </div>
-        
           <div class="links">
             <a class="secondary" href="https://github.com/condecalderonjorge/proyectobuconda.git">Repositorio</a>
           </div>
         </article>
-        
-        
+
         <!-- Card 1 -->
         <article class="card" data-tags="Power BI, SQL, ETL, Retail" data-title="Reto Altadis Data Warehouse KPIs">
           <div class="meta"><span class="badge">Retail · Supply Chain</span><span class="badge">2025</span></div>
@@ -155,7 +291,6 @@
           <div class="tags">
             <span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">ETL</span><span class="tag">Geo</span>
           </div>
-
           <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
@@ -169,8 +304,7 @@
           <div class="tags">
             <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">RFM</span><span class="tag">Cohortes</span>
           </div>
-
-           <div class="links">
+          <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
         </article>
@@ -183,8 +317,7 @@
           <div class="tags">
             <span class="tag">Python</span><span class="tag">R</span><span class="tag">Power BI</span><span class="tag">Time Series</span>
           </div>
-
-           <div class="links">
+          <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
         </article>
@@ -197,22 +330,20 @@
           <div class="tags">
             <span class="tag">KNIME</span><span class="tag">ETL</span><span class="tag">Python</span><span class="tag">JSON</span>
           </div>
-
-           <div class="links">
+          <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
         </article>
 
         <!-- Card 5 -->
         <article class="card" data-tags="Power BI, Mercado, Amazon" data-title="Amazon FBA analitica mercado">
-          <div class="meta"><span class="badge">E‑commerce</span><span class="badge">2024–2025</span></div>
+          <div class="meta"><span class="badge">E-commerce</span><span class="badge">2024–2025</span></div>
           <h3>Amazon FBA — Análisis de mercado y pricing</h3>
           <p>Evaluación de demanda, benchmarking y márgenes (FOB, logística) para producto privado. KPIs: conversión, BSR, share, ROAS.</p>
           <div class="tags">
             <span class="tag">Power BI</span><span class="tag">Marketplace</span><span class="tag">Pricing</span>
           </div>
-
-           <div class="links">
+          <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
         </article>
@@ -225,8 +356,7 @@
           <div class="tags">
             <span class="tag">SQL</span><span class="tag">Modelado</span><span class="tag">Power BI</span>
           </div>
-
-           <div class="links">
+          <div class="links">
             <a class="secondary" href="#" style="pointer-events:none; opacity:0.5;">Repositorio (coming soon)</a>
           </div>
         </article>
@@ -237,10 +367,10 @@
     <section class="container about">
       <div class="box">
         <h2>Sobre mí</h2>
-        <p>Data Analyst con enfoque en negocio. Experiencia en retail (Inditex/Zara) y proyectos de Business Intelligence (UNIR). Me gusta construir soluciones end‑to‑end: desde la ingesta y calidad de datos hasta la visualización y la toma de decisiones.</p>
+        <p>Data Analyst con enfoque en negocio. Experiencia en retail (Inditex/Zara) y proyectos de Business Intelligence (UNIR). Me gusta construir soluciones end-to-end: desde la ingesta y calidad de datos hasta la visualización y la toma de decisiones.</p>
         <ul class="list">
           <li><strong>Stack:</strong> Power BI (DAX, Power Query), KNIME, SQL, Python/R.</li>
-          <li><strong>Áreas:</strong> Retail, logística, e‑commerce, commodities.</li>
+          <li><strong>Áreas:</strong> Retail, logística, e-commerce, commodities.</li>
           <li><strong>Valor:</strong> KPIs accionables, automatización y storytelling con datos.</li>
         </ul>
       </div>
