@@ -86,6 +86,29 @@
 
     .hero-inner { display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(16px, 4vw, 32px); align-items:center; }
 
+.hero .container > .hero-inner > div:first-child {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: clamp(16px, 3vw, 32px);
+}
+
+
+.hero .container > .hero-inner > div:first-child > img {
+  grid-column: 1;
+  grid-row: 1 / span 4;   /* abarca pill, h1, p, ctas */
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  object-fit: cover;
+}
+
+
+.hero .container > .hero-inner > div:first-child > :not(img) {
+  grid-column: 2;
+}
+
     /* Fallback legible + gradiente si hay soporte */
     .hero h1 { 
       font-size: clamp(28px, 5vw, 44px);
