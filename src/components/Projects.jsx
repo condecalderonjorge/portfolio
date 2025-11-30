@@ -25,7 +25,9 @@ const PROJECTS = [
     tags: ['Python', 'GoogleColab', 'EDA', 'CRM'],
     stackTags: ['Python'],
     repoUrl:
-      'https://github.com/condecalderonjorge/Customer-360-Segmentacion-Clientes.git',
+      'https://github.com/condecalderonjorge/adventureworks-customer-360-python.git',
+    reportUrl:
+      'https://github.com/condecalderonjorge/adventureworks-customer-360-python/blob/main/notebooks/adventureworks_customer_360.ipynb',
   },
   {
     id: 'knime-sulfur',
