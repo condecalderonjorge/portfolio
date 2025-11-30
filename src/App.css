@@ -25,7 +25,7 @@
   --radius: 16px;
   --shadow: 0 8px 30px rgba(0,0,0,.35);
 
-  /* cabecerassss*/
+  /* Gradientes para hero y headlines */
   --hero-gradient: linear-gradient(140deg, #0f172a, #1e293b 55%, #0b0f16);
   --headline-fallback: #89b4ff; 
   --headline-gradient: linear-gradient(90deg, #cfe1ff, #4f8cff);
@@ -213,68 +213,16 @@ footer { padding:28px 0; border-top:1px solid var(--border); color:var(--muted);
 }
 .contact a:hover { background:var(--chip-bg); }
 
-/* Accesibilidad*/
+/* Accesibilidad */
 .visually-hidden {
-  position:absolute !important;
-  height:1px; width:1px;
-  overflow:hidden; clip:rect(1px, 1px, 1px, 1px);
-  white-space:nowrap; border:0; padding:0; margin:-1px;
-}
-
-  .card-header {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-bottom: 10px;
-}
-
-.icon-row {
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-}
-
-.icon-circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  background: var(--chip-bg);
-  border: 1px solid var(--border-strong);
-  color: var(--pill-text);
-}
-
-.icon-logo {
-width: 32px;
-height: 32px;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-border-radius: 8px;
-padding: 4px;
-background: var(--chip-bg);
-border: 1px solid var(--border);
-}
-
-.icon-logo svg {
-width: 22px;
-height: 22px;
-}
-
-.card-header {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-bottom: 10px;
-}
-.alt-section {
-background: linear-gradient(180deg,
-var(--bg) 0%,
-var(--card) 100%
-);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
 }
 

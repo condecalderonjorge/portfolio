@@ -44,7 +44,7 @@ const PROJECTS = [
     description:
       'Proyecto de análisis masivo de datos usando <strong>RStudio</strong> sobre el dataset AdventureWorks. Incluye limpieza, transformación, exploración, modelos predictivos (regresión y clasificación), y visualizaciones generadas desde R.',
     tags: ['R', 'Machine Learning', 'Data Cleaning', 'EDA'],
-    stackTags: ['SQL'], 
+    stackTags: ['R'], 
     repoUrl:
       'https://github.com/condecalderonjorge/Machine-Learning-R-Adventureworks.git',
   },
