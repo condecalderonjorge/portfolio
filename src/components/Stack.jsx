@@ -25,6 +25,8 @@ const getTechLogo = (techName) => {
     'GitHub Pages': { icon: 'github', color: '181717' },
     'VS Code': { icon: 'visualstudiocode', color: '007ACC' },
     'Cursor': { icon: 'cursor', color: '4A5568' }, 
+    'React': { icon: 'react', color: '61DAFB' },
+    'Vite': { icon: 'vite', color: '646CFF' },
   }
 
   const logoInfo = logoMap[techName]
@@ -142,6 +144,8 @@ function Stack() {
                 <StackTag name="GitHub Pages" />
                 <StackTag name="VS Code" />
                 <StackTag name="Cursor" />
+                <StackTag name="React" />
+                <StackTag name="Vite" />
               </div>
             </div>
           </div>
