@@ -26,7 +26,7 @@ const getTechLogo = (techName) => {
     'VS Code': { icon: 'visualstudiocode', color: '007ACC' },
     'Cursor': { icon: 'cursor', color: '4A5568' }, 
     'React': { icon: 'react', color: '61DAFB' },
-    'Vite': { icon: 'vite', color: '646CFF' },
+    'Vite': { icon: 'vite', color: 'FBC02D' },
   }
 
   const logoInfo = logoMap[techName]

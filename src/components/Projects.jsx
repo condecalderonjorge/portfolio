@@ -59,6 +59,7 @@ const PROJECTS = [
     tags: ['SQL', 'Modelado', 'Power BI'],
     stackTags: ['SQL', 'Power BI'],
     repoUrl: 'https://github.com/condecalderonjorge/SQL_AdventureWorks.git',
+    ScriptUrl: 'https://github.com/condecalderonjorge/AdventureWorks_DW/blob/main/Script%20ETL.sql',
   },
   {
     id: 'adw-dax',

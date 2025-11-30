@@ -8,6 +8,7 @@ function ProjectCard({ project }) {
     dashboardUrl,
     comingSoonRepo,
     reportUrl,
+    ScriptUrl,
   } = project
 
   return (
@@ -61,6 +62,16 @@ function ProjectCard({ project }) {
             rel="noreferrer"
           >
             Informe de Resultados
+          </a>
+        )}
+        {ScriptUrl && (
+          <a
+            className="secondary"
+            href={ScriptUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Script
           </a>
         )}
       </div>
